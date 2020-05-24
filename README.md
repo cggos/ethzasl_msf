@@ -1,4 +1,4 @@
-# ethzasl_msf_cg
+# ethzasl_msf
 
 Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (commit 5d91612  on May 1, 2018), a sensor fusion framework based on an Extended Kalman Filter (EKF) for 6DOF pose estimation including intrinsic and extrinsic sensor calibration.
 
@@ -21,9 +21,26 @@ Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (
   <img src="http://wiki.ros.org/ethzasl_sensor_fusion/Tutorials/Introductory%20Tutorial%20for%20Multi-Sensor%20Fusion%20Framework?action=AttachFile&do=get&target=structure.png">
 </div>
 
-# Usage
+[TOC]
 
-## the SSF Viconpos Sensor Example
+## Install & Build
+  ```sh
+  mkdir -p ws_msf/src
+  cd ws_msf/src
+
+  git clone <the-project>
+
+  # install dependencies
+  cd ..
+  wstool init src/ src/ethzasl_msf/dependencies.rosinstall
+
+  # build
+  catkin_make
+  ```
+
+## Usage
+
+### the SSF Viconpos Sensor Example
 
 1. start ssf_updates
    ```sh
@@ -48,7 +65,7 @@ Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (
    rosrun ssf_core plot_relevant
    ```     
 
-## the MSF Viconpos Sensor Example
+### the MSF Viconpos Sensor Example
 
 1. start msf_updates
    ```sh
@@ -67,11 +84,11 @@ Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (
      <img src="../../images/stateout.jpg">
    </div>
 
-# Docs
+## Docs
 
 * `doxygen msf_dox.dox`
 
-# TODO
+## TODO
 
 * Multiple fuzzy tracking states
 * extern templates c++11
