@@ -15,11 +15,11 @@ Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (
   }
   ```
 
------
-
 <div align=center>
-  <img src="http://wiki.ros.org/ethzasl_sensor_fusion/Tutorials/Introductory%20Tutorial%20for%20Multi-Sensor%20Fusion%20Framework?action=AttachFile&do=get&target=structure.png">
+  <img src="images/ethz_msf.png">
 </div>
+
+-----
 
 [TOC]
 
@@ -52,7 +52,7 @@ Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (
    rosrun rqt_reconfigure rqt_reconfigure
    ```
    <div align=center>
-     <img src="../../images/rqt_reconfigure_ssf.png">
+     <img src="images/rqt_reconfigure_ssf.png">
    </div>
 
 3. play back dataset  ([dataset.bag](http://wiki.ros.org/ethzasl_sensor_fusion/Tutorials/Introductory%20Tutorial%20for%20Multi-Sensor%20Fusion%20Framework?action=AttachFile&do=view&target=dataset.bag)) in pause mode and from t=25s on
@@ -81,7 +81,7 @@ Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (
    rqt_plot msf_core/state_out/data[0]:data[1]:data[2]   # Positions
    ```
    <div align=center>
-     <img src="../../images/stateout.jpg">
+     <img src="images/stateout.jpg">
    </div>
 
 ## Docs
