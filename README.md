@@ -1,12 +1,17 @@
-# ethzasl_msf
+# ethz-asl SSF & MSF
 
 Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (commit 5d91612  on May 1, 2018), a sensor fusion framework based on an Extended Kalman Filter (EKF) for 6DOF pose estimation including intrinsic and extrinsic sensor calibration.
 
 * MSF: Modular framework for multi sensor fusion based on an Extended Kalman Filter (EKF)
-* Wiki: https://github.com/ethz-asl/ethzasl_msf/wiki
+
+* Wiki
+   - http://wiki.ros.org/ethzasl_sensor_fusion
+   - https://github.com/ethz-asl/ethzasl_msf/wiki
+
 * API: http://ethz-asl.github.io/ethzasl_msf
+
 * Paper
-  ```
+  ```bibtex
   @INPROCEEDINGS{lynen13robust,
      Author = {S Lynen and M Achtelik and S Weiss and M Chli and R Siegwart},
      Title = {A Robust and Modular Multi-Sensor Fusion Approach Applied to MAV Navigation},
@@ -15,9 +20,9 @@ Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (
   }
   ```
 
-<div align=center>
-  <img src="images/ethz_msf.png">
-</div>
+<p align="center">
+  <img src="images/ethz_msf.png"/>
+</p>
 
 -----
 
@@ -51,13 +56,13 @@ Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (
    ```sh
    rosrun rqt_reconfigure rqt_reconfigure
    ```
-   <div align=center>
-     <img src="images/rqt_reconfigure_ssf.png">
-   </div>
+   <p align="center">
+     <img src="images/rqt_reconfigure_ssf.png"/>
+   </p>
 
 3. play back dataset  ([dataset.bag](http://wiki.ros.org/ethzasl_sensor_fusion/Tutorials/Introductory%20Tutorial%20for%20Multi-Sensor%20Fusion%20Framework?action=AttachFile&do=view&target=dataset.bag)) in pause mode and from t=25s on
     ```sh
-    rosbag play dataset.bag --pause -s 25
+    rosbag play --pause -s 25 dataset.bag
     ```  
     
 4. plot result data
@@ -74,15 +79,15 @@ Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (
 
 2. play back dataset  ([dataset.bag](http://wiki.ros.org/ethzasl_sensor_fusion/Tutorials/Introductory%20Tutorial%20for%20Multi-Sensor%20Fusion%20Framework?action=AttachFile&do=view&target=dataset.bag)) in pause mode and from t=25s on
    ```sh
-   rosbag play dataset.bag --pause -s 25
+   rosbag play --pause -s 25 dataset.bag
    ```
 3. plot result data
    ```sh
    rqt_plot msf_core/state_out/data[0]:data[1]:data[2]   # Positions
    ```
-   <div align=center>
-     <img src="images/stateout.jpg">
-   </div>
+   <p align="center">
+     <img src="images/stateout.jpg"/>
+   </p>
 
 ## Docs
 
