@@ -31,10 +31,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <ssf_core/state.h>
 
-namespace ssf_core
-{
+namespace ssf_core {
 
-void State::reset(){
+void State::reset() {
   // states varying during propagation
   p_.setZero();
   v_.setZero();
@@ -56,8 +55,7 @@ void State::reset(){
   time_ = 0;
 }
 
-void State::getPoseCovariance(geometry_msgs::PoseWithCovariance::_covariance_type & cov)
-{
+void State::getPoseCovariance(geometry_msgs::PoseWithCovariance::_covariance_type& cov) {
   assert(cov.size() == 36);
 
   for (int i = 0; i < 9; i++)
@@ -73,22 +71,19 @@ void State::getPoseCovariance(geometry_msgs::PoseWithCovariance::_covariance_typ
     cov[(i / 3 + 3) * 6 + (i % 3 + 3)] = P_((i / 3 + 6) * N_STATE + (i % 3 + 6));
 }
 
-void State::toPoseMsg(geometry_msgs::PoseWithCovarianceStamped & pose)
-{
+void State::toPoseMsg(geometry_msgs::PoseWithCovarianceStamped& pose) {
   eigen_conversions::vector3dToPoint(p_, pose.pose.pose.position);
   eigen_conversions::quaternionToMsg(q_, pose.pose.pose.orientation);
   getPoseCovariance(pose.pose.covariance);
 }
 
-void State::toExtStateMsg(sensor_fusion_comm::ExtState & state)
-{
+void State::toExtStateMsg(sensor_fusion_comm::ExtState& state) {
   eigen_conversions::vector3dToPoint(p_, state.pose.position);
   eigen_conversions::quaternionToMsg(q_, state.pose.orientation);
   eigen_conversions::vector3dToPoint(v_, state.velocity);
 }
 
-void State::toStateMsg(sensor_fusion_comm::DoubleArrayStamped & state)
-{
+void State::toStateMsg(sensor_fusion_comm::DoubleArrayStamped& state) {
   state.data[0] = p_[0];
   state.data[1] = p_[1];
   state.data[2] = p_[2];
@@ -119,4 +114,4 @@ void State::toStateMsg(sensor_fusion_comm::DoubleArrayStamped & state)
   state.data[27] = p_ci_[2];
 }
 
-}; // end namespace ssf_core
+};  // end namespace ssf_core
