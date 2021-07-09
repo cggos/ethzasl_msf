@@ -68,8 +68,7 @@ void PoseSensorHandler::noiseConfig(ssf_core::SSF_CoreConfig& config, uint32_t l
 }
 
 void PoseSensorHandler::measurementCallback(const geometry_msgs::PoseWithCovarianceStampedConstPtr& msg) {
-  //	ROS_INFO_STREAM("measurement received \n"
-  //					<< "type is: " << typeid(msg).name());
+  // ROS_INFO_STREAM("measurement received \n" << "type is: " << typeid(msg).name());
 
   // init variables
   ssf_core::State state_old;
@@ -136,14 +135,14 @@ void PoseSensorHandler::measurementCallback(const geometry_msgs::PoseWithCovaria
 
   // construct H matrix using H-blockx :-)
   // position:
-  H_old.block<3, 3>(0, 0)  =  C_wv.transpose() * state_old.L_;                                                         // p
+  H_old.block<3, 3>(0, 0)  =  C_wv.transpose() * state_old.L_;                                                          // p
   H_old.block<3, 3>(0, 6)  = -C_wv.transpose() * C_q.transpose() * pci_sk * state_old.L_;                              // q
   H_old.block<3, 1>(0, 15) =  C_wv.transpose() * C_q.transpose() * state_old.p_ci_ + C_wv.transpose() * state_old.p_;  // L
-  H_old.block<3, 3>(0, 16) = -C_wv.transpose() * skewold;                                                              // q_wv
+  H_old.block<3, 3>(0, 16) = -C_wv.transpose() * skewold;                                                             // q_wv
   H_old.block<3, 3>(0, 22) =  C_wv.transpose() * C_q.transpose() * state_old.L_;                                       // p_ci
 
   // attitude
-  H_old.block<3, 3>(3, 6)  = C_ci;                                     // q
+  H_old.block<3, 3>(3, 6) = C_ci;                                      // q
   H_old.block<3, 3>(3, 16) = C_ci * C_q;                               // q_wv
   H_old.block<3, 3>(3, 19) = Eigen::Matrix<double, 3, 3>::Identity();  // q_ci
   H_old(6, 18) = 1.0;                                                  // fix vision world yaw drift because unobservable otherwise (see PhD Thesis)
@@ -158,6 +157,8 @@ void PoseSensorHandler::measurementCallback(const geometry_msgs::PoseWithCovaria
   // vision world yaw drift
   q_err = state_old.q_wv_;
   r_old(6, 0) = -2 * (q_err.w() * q_err.z() + q_err.x() * q_err.y()) / (1 - 2 * (q_err.y() * q_err.y() + q_err.z() * q_err.z()));
+
+  std::cout << "r_old: " << r_old.transpose() << std::endl;
 
   // call update step in core class
   measurements->ssf_core_.applyMeasurement(idx, H_old, r_old, R);

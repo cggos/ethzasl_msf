@@ -1,0 +1,11 @@
+<launch>
+    <node name="pose_sensor" pkg="ssf_updates" type="pose_sensor_ssf" clear_params="true" output="screen">
+	    <remap from="ssf_core/imu_state_input" to="/imu0" />
+			<!-- <remap from="ssf_core/hl_state_input" to="/mav1/fcu/ekf_state_out" /> -->
+	    <remap from="ssf_core/pose_measurement" to="/pose_orbslam" />
+
+			<remap from="ssf_core/correction" to="/mav1/fcu/ekf_state_in" />
+
+	    <rosparam file="$(find ssf_updates)/pose_sensor_fix_orbslam_euroc.yaml"/>
+    </node>
+</launch>

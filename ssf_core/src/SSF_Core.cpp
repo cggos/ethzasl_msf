@@ -260,6 +260,8 @@ void SSF_Core::imuCallback(const sensor_msgs::ImuConstPtr& msg) {
   if (!initialized_)
     return;  // // early abort // //
 
+  // ROS_INFO_STREAM("measurement received \n" << "type is: " << typeid(msg).name());
+
   StateBuffer_[idx_state_].time_ = msg->header.stamp.toSec();
 
   static int seq = 0;
@@ -290,6 +292,7 @@ void SSF_Core::imuCallback(const sensor_msgs::ImuConstPtr& msg) {
 
   predictionMade_ = true;
 
+  msgPose_.header.frame_id = "global";
   msgPose_.header.stamp = msg->header.stamp;
   msgPose_.header.seq = msg->header.seq;
 
@@ -705,6 +708,8 @@ bool SSF_Core::applyCorrection(unsigned char idx_delaystate, const ErrorState& r
 }
 
 void SSF_Core::Config(ssf_core::SSF_CoreConfig& config, uint32_t level) {
+  std::cout << "SSF_Core::Config()=====" << std::endl;
+
   for (std::vector<CallbackType>::iterator it = callbacks_.begin(); it != callbacks_.end(); it++)
     (*it)(config, level);
 }
