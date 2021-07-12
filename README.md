@@ -43,9 +43,11 @@ Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (
   catkin_make
   ```
 
-## Usage
+## Run
 
-### the SSF Viconpos Sensor Example
+### SSF
+
+#### the SSF Viconpos Sensor Example
 
 1. start ssf_updates
    ```sh
@@ -70,7 +72,35 @@ Modified version of **[ethzasl_msf](https://github.com/ethz-asl/ethzasl_msf)** (
    rosrun ssf_core plot_relevant
    ```     
 
-### the MSF Viconpos Sensor Example
+#### ORB-SLAM2 (Stereo) + EuRoC V1_01_easy.bag
+
+1. start ssf_updates
+   ```sh
+   roslaunch ssf_updates pose_sensor_orbslam2_euroc.launch
+   ```
+
+2. init filter by click **init_filter** on Config GUI
+   ```sh
+   rosrun rqt_reconfigure rqt_reconfigure
+   ```
+
+3. start orb-slam2 (https://github.com/cggos/orbslam2_cg)
+   ```sh
+   # pose cov:
+   # sigma_pv: 0.001
+   # sigma_rp: 0.5
+   # sigma_yaw: 0.5
+   roslaunch orbslam2_ros run_stereo_euroc.launch bag:=false
+   ```
+
+4. play back dataset
+   ```sh
+   rosbag play V1_01_easy.bag
+   ```
+
+### MSF
+
+#### the MSF Viconpos Sensor Example
 
 1. start msf_updates
    ```sh
