@@ -44,6 +44,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sensor_fusion_comm/ExtEkf.h>
 #include <sensor_fusion_comm/ExtState.h>
 #include <sensor_msgs/Imu.h>
+#include <nav_msgs/Path.h>
 #include <ssf_core/state.h>
 
 #include <vector>
@@ -130,6 +131,9 @@ class SSF_Core {
 
   ros::Publisher pubPose_;  ///< publishes 6DoF pose output
   geometry_msgs::PoseWithCovarianceStamped msgPose_;
+
+  ros::Publisher pub_path_;
+  nav_msgs::Path msg_path_;
 
   ros::Publisher pubPoseCrtl_;  ///< publishes 6DoF pose including velocity output
   sensor_fusion_comm::ExtState msgPoseCtrl_;

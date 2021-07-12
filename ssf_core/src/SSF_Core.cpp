@@ -48,6 +48,7 @@ SSF_Core::SSF_Core() {
   pubCorrect_ = nh.advertise<sensor_fusion_comm::ExtEkf>("correction", 1);
   pubPose_ = nh.advertise<geometry_msgs::PoseWithCovarianceStamped>("pose", 1);
   pubPoseCrtl_ = nh.advertise<sensor_fusion_comm::ExtState>("ext_state", 1);
+  pub_path_ =nh.advertise<nav_msgs::Path>("path", 1);
   msgState_.data.resize(nFullState_, 0);
 
   subImu_ = nh.subscribe("imu_state_input", 1 /*N_STATE_BUFFER*/, &SSF_Core::imuCallback, this);
@@ -302,6 +303,13 @@ void SSF_Core::imuCallback(const sensor_msgs::ImuConstPtr& msg) {
   msgPoseCtrl_.header = msgPose_.header;
   StateBuffer_[(unsigned char)(idx_state_ - 1)].toExtStateMsg(msgPoseCtrl_);
   pubPoseCrtl_.publish(msgPoseCtrl_);
+
+  geometry_msgs::PoseStamped pose_stamped;
+  pose_stamped.header = msgPose_.header;
+  pose_stamped.pose = msgPose_.pose.pose;
+  msg_path_.header = pose_stamped.header;
+  msg_path_.poses.push_back(pose_stamped);
+  pub_path_.publish(msg_path_);
 
   seq++;
 }
